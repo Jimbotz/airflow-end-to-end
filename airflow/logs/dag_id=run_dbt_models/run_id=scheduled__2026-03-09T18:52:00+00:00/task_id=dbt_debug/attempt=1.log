@@ -1,0 +1,52 @@
+[2026-03-09T18:53:13.451+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: run_dbt_models.dbt_debug scheduled__2026-03-09T18:52:00+00:00 [queued]>
+[2026-03-09T18:53:13.461+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: run_dbt_models.dbt_debug scheduled__2026-03-09T18:52:00+00:00 [queued]>
+[2026-03-09T18:53:13.461+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-03-09T18:53:13.477+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): dbt_debug> on 2026-03-09 18:52:00+00:00
+[2026-03-09T18:53:13.483+0000] {standard_task_runner.py:60} INFO - Started process 1091 to run task
+[2026-03-09T18:53:13.486+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'run_dbt_models', 'dbt_debug', 'scheduled__2026-03-09T18:52:00+00:00', '--job-id', '84', '--raw', '--subdir', 'DAGS_FOLDER/dbt_orchestrator.py', '--cfg-path', '/tmp/tmpco0_vub0']
+[2026-03-09T18:53:13.488+0000] {standard_task_runner.py:88} INFO - Job 84: Subtask dbt_debug
+[2026-03-09T18:53:13.539+0000] {task_command.py:423} INFO - Running <TaskInstance: run_dbt_models.dbt_debug scheduled__2026-03-09T18:52:00+00:00 [running]> on host 9410d24c9fb2
+[2026-03-09T18:53:13.636+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='run_dbt_models' AIRFLOW_CTX_TASK_ID='dbt_debug' AIRFLOW_CTX_EXECUTION_DATE='2026-03-09T18:52:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-09T18:52:00+00:00'
+[2026-03-09T18:53:13.637+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-03-09T18:53:13.638+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'cd /opt/airflow/dbt_project && dbt debug --profiles-dir .']
+[2026-03-09T18:53:13.658+0000] {subprocess.py:86} INFO - Output:
+[2026-03-09T18:53:15.247+0000] {subprocess.py:93} INFO - [0m18:53:15  Running with dbt=1.9.0-b2
+[2026-03-09T18:53:15.259+0000] {subprocess.py:93} INFO - [0m18:53:15  dbt version: 1.9.0-b2
+[2026-03-09T18:53:15.259+0000] {subprocess.py:93} INFO - [0m18:53:15  python version: 3.8.18
+[2026-03-09T18:53:15.259+0000] {subprocess.py:93} INFO - [0m18:53:15  python path: /usr/local/bin/python
+[2026-03-09T18:53:15.260+0000] {subprocess.py:93} INFO - [0m18:53:15  os info: Linux-6.12.73-1-MANJARO-x86_64-with-glibc2.34
+[2026-03-09T18:53:15.316+0000] {subprocess.py:93} INFO - [0m18:53:15  Using profiles dir at .
+[2026-03-09T18:53:15.316+0000] {subprocess.py:93} INFO - [0m18:53:15  Using profiles.yml file at ./profiles.yml
+[2026-03-09T18:53:15.317+0000] {subprocess.py:93} INFO - [0m18:53:15  Using dbt_project.yml file at /opt/airflow/dbt_project/dbt_project.yml
+[2026-03-09T18:53:15.317+0000] {subprocess.py:93} INFO - [0m18:53:15  adapter type: postgres
+[2026-03-09T18:53:15.317+0000] {subprocess.py:93} INFO - [0m18:53:15  adapter version: 1.8.2
+[2026-03-09T18:53:15.420+0000] {subprocess.py:93} INFO - [0m18:53:15  Configuration:
+[2026-03-09T18:53:15.420+0000] {subprocess.py:93} INFO - [0m18:53:15    profiles.yml file [[32mOK found and valid[0m]
+[2026-03-09T18:53:15.420+0000] {subprocess.py:93} INFO - [0m18:53:15    dbt_project.yml file [[32mOK found and valid[0m]
+[2026-03-09T18:53:15.421+0000] {subprocess.py:93} INFO - [0m18:53:15  Required dependencies:
+[2026-03-09T18:53:15.436+0000] {subprocess.py:93} INFO - [0m18:53:15   - git [[32mOK found[0m]
+[2026-03-09T18:53:15.436+0000] {subprocess.py:93} INFO - 
+[2026-03-09T18:53:15.436+0000] {subprocess.py:93} INFO - [0m18:53:15  Connection:
+[2026-03-09T18:53:15.436+0000] {subprocess.py:93} INFO - [0m18:53:15    host: postgres_dw
+[2026-03-09T18:53:15.437+0000] {subprocess.py:93} INFO - [0m18:53:15    port: 5432
+[2026-03-09T18:53:15.437+0000] {subprocess.py:93} INFO - [0m18:53:15    user: admin
+[2026-03-09T18:53:15.437+0000] {subprocess.py:93} INFO - [0m18:53:15    database: datawarehouse
+[2026-03-09T18:53:15.438+0000] {subprocess.py:93} INFO - [0m18:53:15    schema: analytics
+[2026-03-09T18:53:15.438+0000] {subprocess.py:93} INFO - [0m18:53:15    connect_timeout: 10
+[2026-03-09T18:53:15.439+0000] {subprocess.py:93} INFO - [0m18:53:15    role: None
+[2026-03-09T18:53:15.439+0000] {subprocess.py:93} INFO - [0m18:53:15    search_path: None
+[2026-03-09T18:53:15.439+0000] {subprocess.py:93} INFO - [0m18:53:15    keepalives_idle: 0
+[2026-03-09T18:53:15.439+0000] {subprocess.py:93} INFO - [0m18:53:15    sslmode: None
+[2026-03-09T18:53:15.440+0000] {subprocess.py:93} INFO - [0m18:53:15    sslcert: None
+[2026-03-09T18:53:15.440+0000] {subprocess.py:93} INFO - [0m18:53:15    sslkey: None
+[2026-03-09T18:53:15.440+0000] {subprocess.py:93} INFO - [0m18:53:15    sslrootcert: None
+[2026-03-09T18:53:15.441+0000] {subprocess.py:93} INFO - [0m18:53:15    application_name: dbt
+[2026-03-09T18:53:15.441+0000] {subprocess.py:93} INFO - [0m18:53:15    retries: 1
+[2026-03-09T18:53:15.442+0000] {subprocess.py:93} INFO - [0m18:53:15  Registered adapter: postgres=1.8.2
+[2026-03-09T18:53:15.494+0000] {subprocess.py:93} INFO - [0m18:53:15    Connection test: [[32mOK connection ok[0m]
+[2026-03-09T18:53:15.495+0000] {subprocess.py:93} INFO - 
+[2026-03-09T18:53:15.495+0000] {subprocess.py:93} INFO - [0m18:53:15  [32mAll checks passed![0m
+[2026-03-09T18:53:16.083+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-03-09T18:53:16.118+0000] {taskinstance.py:1138} INFO - Marking task as SUCCESS. dag_id=run_dbt_models, task_id=dbt_debug, execution_date=20260309T185200, start_date=20260309T185313, end_date=20260309T185316
+[2026-03-09T18:53:16.149+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2026-03-09T18:53:16.171+0000] {taskinstance.py:3280} INFO - 1 downstream tasks scheduled from follow-on schedule check

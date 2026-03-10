@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  faker-persona-mx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: faker-persona-mx
+    volumes:
+      - ./output:/app/output
+      - ./src/faker_persona_mx/data/cache:/app/src/faker_persona_mx/data/cache
+    environment:
+      - LOG_LEVEL=INFO
+      - ENABLE_CACHE=true
+    command: generate 1000 -o /app/output/personas.csv --format csv
+
+# Uso:
+# docker-compose up
+# docker-compose run faker-persona-mx generate 500 -o /app/output/test.json

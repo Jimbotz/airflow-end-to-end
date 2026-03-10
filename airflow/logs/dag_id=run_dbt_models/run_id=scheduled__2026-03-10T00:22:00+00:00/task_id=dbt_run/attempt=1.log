@@ -1,0 +1,54 @@
+[2026-03-10T00:24:02.563+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: run_dbt_models.dbt_run scheduled__2026-03-10T00:22:00+00:00 [queued]>
+[2026-03-10T00:24:02.574+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: run_dbt_models.dbt_run scheduled__2026-03-10T00:22:00+00:00 [queued]>
+[2026-03-10T00:24:02.574+0000] {taskinstance.py:2170} INFO - Starting attempt 1 of 2
+[2026-03-10T00:24:02.590+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): dbt_run> on 2026-03-10 00:22:00+00:00
+[2026-03-10T00:24:02.597+0000] {standard_task_runner.py:60} INFO - Started process 1794 to run task
+[2026-03-10T00:24:02.600+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'run_dbt_models', 'dbt_run', 'scheduled__2026-03-10T00:22:00+00:00', '--job-id', '138', '--raw', '--subdir', 'DAGS_FOLDER/dbt_orchestrator.py', '--cfg-path', '/tmp/tmpz4co7_cz']
+[2026-03-10T00:24:02.602+0000] {standard_task_runner.py:88} INFO - Job 138: Subtask dbt_run
+[2026-03-10T00:24:02.656+0000] {task_command.py:423} INFO - Running <TaskInstance: run_dbt_models.dbt_run scheduled__2026-03-10T00:22:00+00:00 [running]> on host 9410d24c9fb2
+[2026-03-10T00:24:02.747+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='run_dbt_models' AIRFLOW_CTX_TASK_ID='dbt_run' AIRFLOW_CTX_EXECUTION_DATE='2026-03-10T00:22:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-10T00:22:00+00:00'
+[2026-03-10T00:24:02.748+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-03-10T00:24:02.748+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'cd /opt/airflow/dbt_project && dbt run --profiles-dir .']
+[2026-03-10T00:24:02.764+0000] {subprocess.py:86} INFO - Output:
+[2026-03-10T00:24:04.141+0000] {subprocess.py:93} INFO - [0m00:24:04  Running with dbt=1.9.0-b2
+[2026-03-10T00:24:04.445+0000] {subprocess.py:93} INFO - [0m00:24:04  Registered adapter: postgres=1.8.2
+[2026-03-10T00:24:04.617+0000] {subprocess.py:93} INFO - [0m00:24:04  [[33mWARNING[0m]: Configuration paths exist in your dbt_project.yml file which do not apply to any resources.
+[2026-03-10T00:24:04.617+0000] {subprocess.py:93} INFO - There are 1 unused configuration paths:
+[2026-03-10T00:24:04.617+0000] {subprocess.py:93} INFO - - models.analytics_cdc.example
+[2026-03-10T00:24:04.778+0000] {subprocess.py:93} INFO - [0m00:24:04  Found 4 models, 1 source, 423 macros
+[2026-03-10T00:24:04.780+0000] {subprocess.py:93} INFO - [0m00:24:04
+[2026-03-10T00:24:04.781+0000] {subprocess.py:93} INFO - [0m00:24:04  Concurrency: 1 threads (target='dev')
+[2026-03-10T00:24:04.781+0000] {subprocess.py:93} INFO - [0m00:24:04
+[2026-03-10T00:24:04.927+0000] {subprocess.py:93} INFO - [0m00:24:04  1 of 4 START sql table model analytics.dim_demografia_usuarios ................. [RUN]
+[2026-03-10T00:24:05.080+0000] {subprocess.py:93} INFO - [0m00:24:05  1 of 4 ERROR creating sql table model analytics.dim_demografia_usuarios ........ [[31mERROR[0m in 0.15s]
+[2026-03-10T00:24:05.082+0000] {subprocess.py:93} INFO - [0m00:24:05  2 of 4 START sql view model analytics.health_check_duplicados .................. [RUN]
+[2026-03-10T00:24:05.196+0000] {subprocess.py:93} INFO - [0m00:24:05  2 of 4 OK created sql view model analytics.health_check_duplicados ............. [[32mCREATE VIEW[0m in 0.11s]
+[2026-03-10T00:24:05.200+0000] {subprocess.py:93} INFO - [0m00:24:05  3 of 4 START sql view model analytics.ultimos_100_ingresos ..................... [RUN]
+[2026-03-10T00:24:05.263+0000] {subprocess.py:93} INFO - [0m00:24:05  3 of 4 ERROR creating sql view model analytics.ultimos_100_ingresos ............ [[31mERROR[0m in 0.06s]
+[2026-03-10T00:24:05.266+0000] {subprocess.py:93} INFO - [0m00:24:05  4 of 4 SKIP relation analytics.audit_reconciliacion ............................ [[33mSKIP[0m]
+[2026-03-10T00:24:05.279+0000] {subprocess.py:93} INFO - [0m00:24:05
+[2026-03-10T00:24:05.280+0000] {subprocess.py:93} INFO - [0m00:24:05  Finished running 1 table model, 3 view models in 0 hours 0 minutes and 0.50 seconds (0.50s).
+[2026-03-10T00:24:05.316+0000] {subprocess.py:93} INFO - [0m00:24:05
+[2026-03-10T00:24:05.317+0000] {subprocess.py:93} INFO - [0m00:24:05  [31mCompleted with 2 errors, 0 partial successs, and 0 warnings:[0m
+[2026-03-10T00:24:05.317+0000] {subprocess.py:93} INFO - [0m00:24:05
+[2026-03-10T00:24:05.318+0000] {subprocess.py:93} INFO - [0m00:24:05    Database Error in model dim_demografia_usuarios (models/dim_demografia_usuarios.sql)
+[2026-03-10T00:24:05.318+0000] {subprocess.py:93} INFO -   relation "dim_demografia_usuarios__dbt_backup" already exists
+[2026-03-10T00:24:05.318+0000] {subprocess.py:93} INFO -   compiled code at target/run/analytics_cdc/models/dim_demografia_usuarios.sql
+[2026-03-10T00:24:05.318+0000] {subprocess.py:93} INFO - [0m00:24:05
+[2026-03-10T00:24:05.319+0000] {subprocess.py:93} INFO - [0m00:24:05    Database Error in model ultimos_100_ingresos (models/ultimos_100_ingresos.sql)
+[2026-03-10T00:24:05.319+0000] {subprocess.py:93} INFO -   relation "ultimos_100_ingresos__dbt_backup" already exists
+[2026-03-10T00:24:05.319+0000] {subprocess.py:93} INFO -   compiled code at target/run/analytics_cdc/models/ultimos_100_ingresos.sql
+[2026-03-10T00:24:05.319+0000] {subprocess.py:93} INFO - [0m00:24:05
+[2026-03-10T00:24:05.319+0000] {subprocess.py:93} INFO - [0m00:24:05  Done. PASS=1 WARN=0 ERROR=2 SKIP=1 TOTAL=4
+[2026-03-10T00:27:23.556+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2026-03-10T00:27:23.626+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-03-10T00:27:23.635+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=run_dbt_models, task_id=dbt_run, execution_date=20260310T002200, start_date=20260310T002402, end_date=20260310T002723
+[2026-03-10T00:27:23.655+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 138 for task dbt_run (Bash command failed. The command returned a non-zero exit code 1.; 1794)
+[2026-03-10T00:27:23.697+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-10T00:27:23.726+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

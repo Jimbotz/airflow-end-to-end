@@ -1,0 +1,140 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    restart: always
+    ports:
+      - "46000:27017" 
+    env_file:
+      - .env
+    volumes:
+      - mongo_data:/data/db
+      - ./scripts/init-rs.sh:/docker-entrypoint-initdb.d/init-rs.sh:ro
+      - ./security/mongodb.key:/etc/mongodb.key:ro
+    command: [
+      "--replSet", "rs0", 
+      "--bind_ip_all", 
+      "--port", "27017", 
+      "--keyFile", "/etc/mongodb.key",
+      "--auth"
+    ]
+    networks:
+      - cdc_network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka_broker
+    restart: always
+    ports:
+      - "46500:46500" # El puerto que elegiste para exponer a tu Manjaro
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      # Configuramos dos puertas: la 9092 para red interna de Docker y 46500 para tu host
+      KAFKA_LISTENERS: INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:46500,CONTROLLER://0.0.0.0:9093
+      # Así es como Kafka se anuncia a los clientes. Desde fuera, le diremos que es localhost:46500
+      KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka_broker:9092,EXTERNAL://localhost:46500
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@localhost:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - cdc_network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+
+  postgres:
+    image: postgres:15
+    container_name: postgres_dw
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: testing
+      POSTGRES_DB: datawarehouse
+    ports:
+      - "47000:5432" # Puerto expuesto en tu Manjaro
+    networks:
+      - cdc_network
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  airflow-init:
+    #image: apache/airflow:2.8.1
+    build: .
+    container_name: airflow_init
+    depends_on:
+      - postgres
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://admin:testing@postgres_dw:5432/datawarehouse
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    command: version
+    networks:
+      - cdc_network
+
+  airflow-webserver:
+    #image: apache/airflow:2.8.1
+    build: .
+    container_name: airflow_webserver
+    restart: always
+    depends_on:
+      - airflow-init
+      - postgres
+    ports:
+      - "46250:8080" 
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://admin:testing@postgres_dw:5432/datawarehouse
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      #- _PIP_ADDITIONAL_REQUIREMENTS=dbt-postgres # se instala dbt para airflow
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./analytics_cdc:/opt/airflow/dbt_project
+    command: bash -c "airflow db migrate && airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com && airflow webserver"
+    networks:
+      - cdc_network
+
+  airflow-scheduler:
+    #image: apache/airflow:2.8.1
+    build: .
+    container_name: airflow_scheduler
+    restart: always
+    depends_on:
+      - airflow-webserver
+    environment:
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://admin:testing@postgres_dw:5432/datawarehouse
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./analytics_cdc:/opt/airflow/dbt_project
+    command: scheduler
+    networks:
+      - cdc_network
+
+networks:
+  cdc_network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  kafka_data:
+  pg_data:

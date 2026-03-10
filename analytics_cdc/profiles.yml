@@ -1,0 +1,12 @@
+analytics_cdc:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      threads: 1
+      host: postgres_dw  # <-- Nombre interno del contenedor
+      port: 5432         # <-- Puerto interno estándar de Postgres
+      user: admin
+      password: testing
+      dbname: datawarehouse
+      schema: analytics

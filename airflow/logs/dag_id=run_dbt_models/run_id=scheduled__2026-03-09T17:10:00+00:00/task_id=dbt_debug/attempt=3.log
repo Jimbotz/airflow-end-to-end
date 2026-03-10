@@ -1,0 +1,49 @@
+[2026-03-09T17:18:43.035+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: run_dbt_models.dbt_debug scheduled__2026-03-09T17:10:00+00:00 [queued]>
+[2026-03-09T17:18:43.042+0000] {taskinstance.py:1956} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: run_dbt_models.dbt_debug scheduled__2026-03-09T17:10:00+00:00 [queued]>
+[2026-03-09T17:18:43.043+0000] {taskinstance.py:2170} INFO - Starting attempt 3 of 4
+[2026-03-09T17:18:43.055+0000] {taskinstance.py:2191} INFO - Executing <Task(BashOperator): dbt_debug> on 2026-03-09 17:10:00+00:00
+[2026-03-09T17:18:43.062+0000] {standard_task_runner.py:60} INFO - Started process 266 to run task
+[2026-03-09T17:18:43.066+0000] {standard_task_runner.py:87} INFO - Running: ['airflow', 'tasks', 'run', 'run_dbt_models', 'dbt_debug', 'scheduled__2026-03-09T17:10:00+00:00', '--job-id', '44', '--raw', '--subdir', 'DAGS_FOLDER/dbt_orchestrator.py', '--cfg-path', '/tmp/tmpzlb748xw']
+[2026-03-09T17:18:43.067+0000] {standard_task_runner.py:88} INFO - Job 44: Subtask dbt_debug
+[2026-03-09T17:18:43.115+0000] {task_command.py:423} INFO - Running <TaskInstance: run_dbt_models.dbt_debug scheduled__2026-03-09T17:10:00+00:00 [running]> on host aff18b8e2dfd
+[2026-03-09T17:18:43.189+0000] {taskinstance.py:2480} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='data_engineer' AIRFLOW_CTX_DAG_ID='run_dbt_models' AIRFLOW_CTX_TASK_ID='dbt_debug' AIRFLOW_CTX_EXECUTION_DATE='2026-03-09T17:10:00+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-09T17:10:00+00:00'
+[2026-03-09T17:18:43.190+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-03-09T17:18:43.190+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'cd /opt/airflow/dbt_project && dbt debug --profiles-dir .']
+[2026-03-09T17:18:43.203+0000] {subprocess.py:86} INFO - Output:
+[2026-03-09T17:18:44.465+0000] {subprocess.py:93} INFO - [0m17:18:44  Running with dbt=1.9.0-b2
+[2026-03-09T17:18:44.474+0000] {subprocess.py:93} INFO - [0m17:18:44  dbt version: 1.9.0-b2
+[2026-03-09T17:18:44.474+0000] {subprocess.py:93} INFO - [0m17:18:44  python version: 3.8.18
+[2026-03-09T17:18:44.474+0000] {subprocess.py:93} INFO - [0m17:18:44  python path: /usr/local/bin/python
+[2026-03-09T17:18:44.474+0000] {subprocess.py:93} INFO - [0m17:18:44  os info: Linux-6.12.73-1-MANJARO-x86_64-with-glibc2.34
+[2026-03-09T17:18:44.475+0000] {subprocess.py:93} INFO - [0m17:18:44  Using profiles dir at .
+[2026-03-09T17:18:44.475+0000] {subprocess.py:93} INFO - [0m17:18:44  Using profiles.yml file at ./profiles.yml
+[2026-03-09T17:18:44.475+0000] {subprocess.py:93} INFO - [0m17:18:44  Using dbt_project.yml file at /opt/airflow/dbt_project/dbt_project.yml
+[2026-03-09T17:18:44.578+0000] {subprocess.py:93} INFO - [0m17:18:44  Configuration:
+[2026-03-09T17:18:44.578+0000] {subprocess.py:93} INFO - [0m17:18:44    profiles.yml file [[31mERROR not found[0m]
+[2026-03-09T17:18:44.579+0000] {subprocess.py:93} INFO - [0m17:18:44    dbt_project.yml file [[32mOK found and valid[0m]
+[2026-03-09T17:18:44.579+0000] {subprocess.py:93} INFO - [0m17:18:44  Required dependencies:
+[2026-03-09T17:18:44.588+0000] {subprocess.py:93} INFO - [0m17:18:44   - git [[31mERROR[0m]
+[2026-03-09T17:18:44.588+0000] {subprocess.py:93} INFO - 
+[2026-03-09T17:18:44.588+0000] {subprocess.py:93} INFO - [0m17:18:44  Connection test skipped since no profile was found
+[2026-03-09T17:18:44.588+0000] {subprocess.py:93} INFO - [0m17:18:44  [31m2 checks failed:[0m
+[2026-03-09T17:18:44.589+0000] {subprocess.py:93} INFO - [0m17:18:44  dbt looked for a profiles.yml file in ./profiles.yml, but did
+[2026-03-09T17:18:44.589+0000] {subprocess.py:93} INFO - not find one. For more information on configuring your profile, consult the
+[2026-03-09T17:18:44.589+0000] {subprocess.py:93} INFO - documentation:
+[2026-03-09T17:18:44.589+0000] {subprocess.py:93} INFO - 
+[2026-03-09T17:18:44.589+0000] {subprocess.py:93} INFO - https://docs.getdbt.com/docs/configure-your-profile
+[2026-03-09T17:18:44.590+0000] {subprocess.py:93} INFO - 
+[2026-03-09T17:18:44.590+0000] {subprocess.py:93} INFO - 
+[2026-03-09T17:18:44.590+0000] {subprocess.py:93} INFO - [0m17:18:44  Error from git --help: User does not have permissions for this command: "git"
+[2026-03-09T17:18:44.590+0000] {subprocess.py:93} INFO - 
+[2026-03-09T17:18:46.234+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2026-03-09T17:18:46.246+0000] {taskinstance.py:2698} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 433, in _execute_task
+    result = execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2026-03-09T17:18:46.249+0000] {taskinstance.py:1138} INFO - Marking task as UP_FOR_RETRY. dag_id=run_dbt_models, task_id=dbt_debug, execution_date=20260309T171000, start_date=20260309T171843, end_date=20260309T171846
+[2026-03-09T17:18:46.265+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 44 for task dbt_debug (Bash command failed. The command returned a non-zero exit code 1.; 266)
+[2026-03-09T17:18:46.289+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2026-03-09T17:18:46.313+0000] {taskinstance.py:3280} INFO - 0 downstream tasks scheduled from follow-on schedule check

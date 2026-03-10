@@ -1,0 +1,10 @@
+# Ignorar carpetas de seguridad y bases de datos locales
+security/
+mongo_data/
+pg_data/
+kafka_data/
+
+# Ignorar el entorno virtual y temporales de Python
+venv/
+__pycache__/
+*.pyc
